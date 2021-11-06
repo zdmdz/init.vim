@@ -1,48 +1,17 @@
+" Plugin {{{
+let g:plug_threads=20
+let g:plug_url_format='https://git::@hub.fastgit.org/%s.git'
 
-"工作目录 
-"exec ":cd C:/Users/Default/Desktop"
-"exec ":cd D:/code/随机点名"
-"exec ":cd D:/code/sdl"
-exec ":cd D:/code/zui"
-"exec ":cd D:/code/dreamscript"
-"exec ":cd D:/code/zlang"
-
-" Plugins {{{
-
-" install plugins {{{
 call plug#begin('$VIM/plugins')
-
-"Plug 'vim-airline/vim-airline'
 Plug 'itchyny/lightline.vim' "状态栏
 Plug 'mengelbrecht/lightline-bufferline' "bufferline
-"Plug 'akinsho/bufferline.nvim' "bufferline
-"Plug 'akinsho/nvim-bufferline.lua' "bufferline 不知道怎么用
-"Plug 'tamton-aquib/staline.nvim' "老报错
-"Plug 'liuchengxu/eleline.vim' "也会报错
-"Plug 'glepnir/galaxyline.nvim' 报错
-
 Plug 'glepnir/dashboard-nvim' "开始页面
-Plug 'ryanoasis/vim-devicons' "图标美化
-"Plug 'kyazdani42/nvim-web-devicons' "同上
 
-"Plug 'nvim-treesitter/nvim-treesitter' "高亮
-Plug 'octol/vim-cpp-enhanced-highlight' "C++高亮增强
-"Plug 'jackguo380/vim-lsp-cxx-highlight' "C++高亮增强 
-"
+Plug 'neoclide/coc.nvim', {'branch': 'release'} "补全
+
+Plug 'kyazdani42/nvim-web-devicons' "图标
 Plug 'preservim/nerdtree' "文件树
-"if has('nvim') "文件树
-"  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-"else
-"  Plug 'Shougo/defx.nvim'
-"  Plug 'roxma/nvim-yarp'
-"  Plug 'roxma/vim-hug-neovim-rpc'
-"endif
-
-Plug 'neoclide/coc.nvim',{'branch': 'release'} "补全
-"Plug 'maralla/completor.vim' "补全
-"Plug 'justmao945/vim-clang' "补全
 Plug 'liuchengxu/vista.vim' "函数列表
-
 "主题
 Plug 'joshdick/onedark.vim'
 Plug 'tomasiser/vim-code-dark'
@@ -52,21 +21,13 @@ Plug 'morhetz/gruvbox'
 Plug 'sainnhe/gruvbox-material'
 
 Plug 'vuciv/vim-bujo' "Todolist
-"Plug 'Yggdroot/indentLine' "可视化缩进
+Plug 'Yggdroot/indentLine' "可视化缩进
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' } "搜索
 
-"Plug 'skywind3000/asynctasks.vim' "运行项目用
+Plug 'zdmdz/NeoDebug'
 
-"Plug 'puremourning/vimspector' "debug
-"Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' } "debug
-"Plug 'skt041959/gdbmi.nvim'
-Plug 'cpiger/NeoDebug'
-"Plug 'mfussenegger/nvim-dap'
-"Plug 'rcarriga/nvim-dap-ui'
-"Plug 'Pocco81/DAPInstall.nvim'
-"packadd termdebug
 call plug#end()
-" }}}
+
 
 " Plugin-coc {{{
 
@@ -229,7 +190,7 @@ let g:webdevicons_conceal_nerdtree_brackets = 1
 " Plugin-dashboard {{{
  let g:dashboard_custom_header = [
 		\ '',
-		\ ' 我发誓，以后无论做什么都不耽误学习。',
+		\ ' Just for fun.',
 		\ '',
 		\ '',
 		\ '',
@@ -290,18 +251,12 @@ let g:vista_icon_indent = ["+->", "|-> "]
 let g#bujo#todo_file_path = "$/bujo.md"
 let g:bujo#window_width = 33
 " }}}
+
 " }}}
 
-" editor setting {{{
+" some settings {{{
+set clipboard=unnamedplus
 set winaltkeys=no
-if has('nvim')
-    try
-        call rpcnotify(1, 'Gui', 'Option', 'Tabline', 0)
-        call rpcnotify(1, 'Gui', 'Option', 'Popupmenu', 0)
-    catch
-    endtry
-endif
-
 set autoread
 set updatetime=800 "刷新速度
 set number "显示行号
@@ -332,8 +287,6 @@ set fillchars=vert:/
 set fillchars=stl:/
 set fillchars=stlnc:/
 
-set guifont=JetBrainsMono_NF:h14
-
 "编码
 set encoding=utf-8
 autocmd FileType cpp :set fileencoding=gbk
@@ -346,27 +299,20 @@ autocmd FileType cmd :set fileencoding=utf-8
 autocmd FileType markdown :set fileencoding=utf-8
 autocmd FileType txt :set fileencoding=utf-8
 
-autocmd FileType vim :set foldmethod=marker
-autocmd FileType cpp :set foldmethod=indent 
-autocmd FileType lua :set foldmethod=syntax
-autocmd FileType hpp :set foldmethod=syntax 
-autocmd FileType c :set foldmethod=syntax
-autocmd FileType h :set foldmethod=syntax 
-"}}}
+set foldmethod=marker
+" }}}
 
 " my key {{{
 map ; :
 map <S-t> :term<CR>
 "打开关闭折叠
-imap <A-[> <ESC>zai
+imap <A-[> <ESC>za
 map <A-[> za
 "运行项目
 imap <C-b> <ESC>;sp<CR><C-w><Down>;term task<CR>
 map <C-b> ;sp<CR><C-w><Down>;term task<CR>
 "调试
-map <f5> :Termdebug a.exe<CR>
-map <A-c> :Continue<CR>
-map <A-b> :Break<CR>
+
 "强制关闭
 map <A-q> ;bd!<CR>
 "切换buffer
