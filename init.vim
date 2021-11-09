@@ -1,3 +1,4 @@
+
 " Plugin {{{
 let g:plug_threads=20
 let g:plug_url_format='https://git::@hub.fastgit.org/%s.git'
@@ -14,20 +15,16 @@ Plug 'preservim/nerdtree' "文件树
 Plug 'liuchengxu/vista.vim' "函数列表
 "主题
 Plug 'joshdick/onedark.vim'
-Plug 'tomasiser/vim-code-dark'
 Plug 'liuchengxu/space-vim-dark'
 Plug 'tomasr/molokai' 
-Plug 'morhetz/gruvbox'
 Plug 'sainnhe/gruvbox-material'
 
-Plug 'vuciv/vim-bujo' "Todolist
 Plug 'Yggdroot/indentLine' "可视化缩进
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' } "搜索
 
 Plug 'zdmdz/NeoDebug'
 
 call plug#end()
-
 
 " Plugin-coc {{{
 
@@ -177,20 +174,16 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " }}}
 
-" Plugin-vscode-theme {{{
-let g:vscode_style="dark"
-" }}}
-
-" Plugin-devicons {{{
-let g:webdevicons_enable = 1
-let g:webdevicons_enable_nerdtree = 1
-let g:webdevicons_conceal_nerdtree_brackets = 1
+" Plugin-indentLine {{{
+let g:indentLine_fileTypeExclude = ['dashboard']
 " }}}
 
 " Plugin-dashboard {{{
  let g:dashboard_custom_header = [
 		\ '',
 		\ ' Just for fun.',
+		\ '',
+		\ '',
 		\ '',
 		\ '',
 		\ '',
@@ -245,11 +238,6 @@ autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 let g:vista_default_executive = 'coc'
 
 let g:vista_icon_indent = ["+->", "|-> "]
-" }}}
-
-" Plugin-bujo {{{
-let g#bujo#todo_file_path = "$/bujo.md"
-let g:bujo#window_width = 33
 " }}}
 
 " }}}
@@ -333,4 +321,5 @@ map <A-7> <f7>
 map <A-8> <f8>
 map <A-9> <f9>
 map <A-0> <f10>
+
 " }}}
