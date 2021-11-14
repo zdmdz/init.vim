@@ -1,28 +1,30 @@
-
+"exec "cd D:/code/zui"
+exec "cd D:/Neovim/share/nvim/plugins/debug.nvim"
+"exec "cd C:/Users/春霞/AppData/Local/nvim"
 " Plugin {{{
 let g:plug_threads=20
 let g:plug_url_format='https://git::@hub.fastgit.org/%s.git'
 
 call plug#begin('$VIM/plugins')
-Plug 'itchyny/lightline.vim' "状态栏
-Plug 'mengelbrecht/lightline-bufferline' "bufferline
-Plug 'glepnir/dashboard-nvim' "开始页面
-
-Plug 'neoclide/coc.nvim', {'branch': 'release'} "补全
-
-Plug 'kyazdani42/nvim-web-devicons' "图标
-Plug 'preservim/nerdtree' "文件树
-Plug 'liuchengxu/vista.vim' "函数列表
 "主题
 Plug 'joshdick/onedark.vim'
 Plug 'liuchengxu/space-vim-dark'
 Plug 'tomasr/molokai' 
 Plug 'sainnhe/gruvbox-material'
 
-Plug 'Yggdroot/indentLine' "可视化缩进
+Plug 'itchyny/lightline.vim' "状态栏
+Plug 'mengelbrecht/lightline-bufferline' "bufferline
+Plug 'glepnir/dashboard-nvim' "开始页面
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'} "补全
+Plug 'kyazdani42/nvim-web-devicons' "图标
+Plug 'preservim/nerdtree'
+Plug 'liuchengxu/vista.vim' "函数列表
+
 Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' } "搜索
 
 Plug 'zdmdz/NeoDebug'
+Plug 'zdmdz/debug.nvim', { 'do': ':UpdateRemotePlugins' }
 
 call plug#end()
 
@@ -174,10 +176,6 @@ nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 " }}}
 
-" Plugin-indentLine {{{
-let g:indentLine_fileTypeExclude = ['dashboard']
-" }}}
-
 " Plugin-dashboard {{{
  let g:dashboard_custom_header = [
 		\ '',
@@ -193,13 +191,13 @@ autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set sho
 
 " Plugin-lightline {{{
 let g:lightline = {
-     \ 'colorscheme': 'one',
+     \ 'colorscheme': 'wombat',
      \ 'active': {
      \   'left': [ [ 'mode', 'paste' ], [ 'filename', 'modified' ] ]
      \ },
      \ 'tabline': {
      \   'left': [ ['buffers'] ],
-     \   'right': [ ['close'] ]
+     \   'right': [ ]
      \ },
      \ 'component_expand': {
      \   'buffers': 'lightline#bufferline#buffers'
@@ -208,18 +206,9 @@ let g:lightline = {
      \   'buffers': 'tabsel'
      \ }
      \ }
-"autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
-
+autocmd BufWritePost,TextChanged,TextChangedI * call lightline#update()
+let g:lightline#bufferline#enable_devicons = 1
 "}}}
-
-" Plugin-NERDTree {{{
-let NERDTreeMinimalUI = 1
-let g:NERDTreeDirArrowExpandable = '▶'
-let g:NERDTreeDirArrowCollapsible = '▼'
-let NERDTreeIgnore = ['.xmake'] "不显示文件夹
-map <A-e> :NERDTree<CR>
-"autocmd VimEnter * :NERDTree
-" }}}
 
 " Plugin-vista.vim{{{
 function! NearestMethodOrFunction() abort
@@ -240,6 +229,16 @@ let g:vista_default_executive = 'coc'
 let g:vista_icon_indent = ["+->", "|-> "]
 " }}}
 
+" Plugin-nerdtree {{{
+let g:NERDTreeWinSize = 25
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+map <A-e> :NERDTree<Cr>
+" }}}
+
+" Plug-vimclap {{{
+let g:clap_theme = 'material_design_dark'
+" }}}
 " }}}
 
 " some settings {{{
