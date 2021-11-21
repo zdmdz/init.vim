@@ -1,32 +1,38 @@
-"exec "cd D:/code/zui"
-exec "cd D:/Neovim/share/nvim/plugins/debug.nvim"
-"exec "cd C:/Users/春霞/AppData/Local/nvim"
 " Plugin {{{
-let g:plug_threads=20
-let g:plug_url_format='https://git::@hub.fastgit.org/%s.git'
+set runtimepath+=D:\Neovim\dein\repos\github.com\Shougo\dein.vim
 
-call plug#begin('$VIM/plugins')
-"主题
-Plug 'joshdick/onedark.vim'
-Plug 'liuchengxu/space-vim-dark'
-Plug 'tomasr/molokai' 
-Plug 'sainnhe/gruvbox-material'
+let g:dein#types#git#default_hub_site = "hub.fastgit.org"
 
-Plug 'itchyny/lightline.vim' "状态栏
-Plug 'mengelbrecht/lightline-bufferline' "bufferline
-Plug 'glepnir/dashboard-nvim' "开始页面
+call dein#begin('D:\Neovim\dein')
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'} "补全
-Plug 'kyazdani42/nvim-web-devicons' "图标
-Plug 'preservim/nerdtree'
-Plug 'liuchengxu/vista.vim' "函数列表
+	call dein#add('D:\Neovim\dein\repos\github.com\Shougo\dein.vim')
+	call dein#add('wsdjeg/dein-ui.vim')
 
-Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' } "搜索
+	call dein#add('dstein64/vim-startuptime') "记录开始时间
 
-Plug 'zdmdz/NeoDebug'
-Plug 'zdmdz/debug.nvim', { 'do': ':UpdateRemotePlugins' }
+	call dein#add('kyazdani42/nvim-web-devicons') "图标
+	call dein#add('liuchengxu/vista.vim', {'lazy': 1}) "函数列表
+	call dein#add('liuchengxu/vim-clap', {'lazy': 1})
+	call dein#add('preservim/nerdtree', {'lazy': 1}) "文件树
 
-call plug#end()
+	"主题
+	call dein#add('joshdick/onedark.vim', {'lazy': 1})
+	call dein#add('liuchengxu/space-vim-dark', {'lazy': 1})
+	call dein#add('tomasr/molokai', {'lazy': 1})
+	call dein#add('sainnhe/gruvbox-material')
+
+	call dein#add('itchyny/lightline.vim') "状态栏
+	call dein#add('mengelbrecht/lightline-bufferline') "bufferline
+	call dein#add('glepnir/dashboard-nvim') "开始页面
+
+	call dein#add('neoclide/coc.nvim', {'merged': 0, 'rev': 'release' })
+	call dein#add('jiangmiao/auto-pairs', {'lazy': 1}) "补全括号
+
+	call dein#add('puremourning/vimspector', {'lazy': 1})
+	
+call dein#end()
+
+filetype plugin indent on
 
 " Plugin-coc {{{
 
@@ -185,8 +191,10 @@ nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 		\ '',
 		\ '',
 		\ '',
+		\ '',
 		\ ]
 autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2
+autocmd FileType dashboard set laststatus=0 | autocmd WinLeave <buffer> set laststatus=2
 " }}}
 
 " Plugin-lightline {{{
@@ -238,6 +246,11 @@ map <A-e> :NERDTree<Cr>
 
 " Plug-vimclap {{{
 let g:clap_theme = 'material_design_dark'
+let g:clap_enable_background_shadow = v:false
+"}}}
+
+" Plugin-vimspector {{{
+let g:vimspector_enable_mappings = 'HUMAN'
 " }}}
 " }}}
 
@@ -245,19 +258,17 @@ let g:clap_theme = 'material_design_dark'
 set clipboard=unnamedplus
 set winaltkeys=no
 set autoread
-set updatetime=800 "刷新速度
+set updatetime=300 "刷新速度
 set number "显示行号
 set clipboard+=unnamedplus "启用系统剪贴板
 set noswapfile "无交换文件
 set noshowmode "不显示当前模式
 set mouse=a "开启鼠标
-set scrolloff=2 "滚动时距离底部始终2行
+set scrolloff=3 "滚动时距离底部始终2行
 set cursorline "高亮当前行
-set updatetime=300
 
 set cindent "c文件自动缩进
 set showtabline=2 "永久显示tabline
-set hidden "未保存时切换buffer
 
 "syntax enable
 syntax on
@@ -301,14 +312,15 @@ map <C-b> ;sp<CR><C-w><Down>;term task<CR>
 "调试
 
 "强制关闭
-map <A-q> ;bd!<CR>
+map <A-q> :qa!<CR>
+map <A-d> :bd!<CR>
 "切换buffer
 imap <S-Left> <ESC>:bp<CR>i
 imap <S-Right> <ESC>:bn<CR>i
 map <S-Left> :bp<CR>
 map <S-Right> :bn<CR>
 "保存
-map <C-s> :w<CR>
+map <A-w> :w<CR>
 "防止f?键被占用
 map <A-1> <f1>
 map <A-2> <f2>
